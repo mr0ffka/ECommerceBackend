@@ -1,0 +1,56 @@
+﻿using ECommerce.Application.Contracts.Identity;
+using ECommerce.Application.Models.Identity;
+using ECommerce.Identity.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ECommerce.Identity.Services
+{
+    public class UserService : IUserService
+    {
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IHttpContextAccessor _contextAccessor;
+
+
+        public UserService(
+            UserManager<AppUser> userManager,
+            IHttpContextAccessor contextAccessor
+        )
+        {
+            _userManager = userManager;
+            _contextAccessor = contextAccessor;
+        }
+
+        public string CurrUserId { get => _contextAccessor.HttpContext?.User?.FindFirstValue("uid"); }
+
+        public async Task<User> GetUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            return new User
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+            };
+        }
+
+        public async Task<List<User>> GetUsers()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("User");
+            return users.Select(u => new User
+            {
+                Id = u.Id,
+                Email = u.Email,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+            }).ToList();
+        }
+    }
+}
