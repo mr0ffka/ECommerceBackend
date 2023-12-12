@@ -22,7 +22,6 @@ services:
     restart: always
     ports:
       - "8080:8080"
-      - "8081:8081"
     networks:
       - default
   app_db:
