@@ -2,6 +2,7 @@
 using ECommerce.Application.Exceptions;
 using ECommerce.Application.Models.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -23,6 +24,14 @@ namespace ECommerce.Api.Controllers
         public async Task<ActionResult<AuthResponse>> Login(AuthRequest request)
         {
             return Ok(await _authService.Login(request));
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<ActionResult> Logout()
+        {
+            await _authService.Logout();
+            return Ok();
         }
 
         [HttpPost("register")]
