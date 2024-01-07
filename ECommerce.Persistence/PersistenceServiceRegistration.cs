@@ -22,7 +22,8 @@ namespace ECommerce.Persistence
             });
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped(typeof(IExampleRepository), typeof(ExampleRepository));
+            services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+            services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
 
             return services;
         }

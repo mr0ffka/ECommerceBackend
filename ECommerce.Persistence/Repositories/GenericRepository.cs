@@ -1,4 +1,5 @@
-﻿using ECommerce.Application.Contracts.Persistence;
+﻿using ECommerce.Application.Contracts.Common;
+using ECommerce.Application.Contracts.Persistence;
 using ECommerce.Domain.Common;
 using ECommerce.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,13 @@ namespace ECommerce.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> Exists(long id)
+        {
+            return await _context.Set<T>()
+                .AsNoTracking()
+                .AnyAsync(x => x.Id == id);
+        }
+
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {
             return await _context.Set<T>()
@@ -38,11 +46,11 @@ namespace ECommerce.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(string id)
+        public async Task<T> GetByIdAsync(long id)
         {
             return await _context.Set<T>()
                 .AsNoTracking()
-                .FirstOrDefaultAsync(r => r.PublicId == id);
+                .FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task UpdateAsync(T entity)

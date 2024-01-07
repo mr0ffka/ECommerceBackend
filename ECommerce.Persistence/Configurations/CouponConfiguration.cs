@@ -15,17 +15,14 @@ namespace ECommerce.Persistence.Configurations
         {
             builder.ToTable("Coupons");
 
-            builder.HasIndex(x => x.PublicId, "IX_Coupon_PublicId")
-                .IsUnique();
-
             builder
                 .Property(e => e.Id).UseIdentityAlwaysColumn();
 
-            builder
-                .Property(e => e.PublicId)
-                .HasMaxLength(36)
-                .HasDefaultValueSql("uuid_generate_v4()")
-                .IsFixedLength();
+            builder.Property(e => e.Code)
+                .IsRequired();
+
+            builder.HasIndex(x => x.Code, "IX_Coupon_Code")
+                .IsUnique();
 
             builder.Property(q => q.ValidFromUtc)
                 .IsRequired();

@@ -24,7 +24,6 @@ namespace ECommerce.Persistence.DbContext
             _userService = userService;
         }
 
-        public DbSet<Example> Examples { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Category> Categories{ get; set; }
@@ -36,8 +35,6 @@ namespace ECommerce.Persistence.DbContext
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.HasPostgresExtension("uuid-ossp");
-
             builder.ApplyConfigurationsFromAssembly(typeof(ECommerceDbContext).Assembly);
 
             base.OnModelCreating(builder);
@@ -45,8 +42,14 @@ namespace ECommerce.Persistence.DbContext
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            var states = new List<EntityState> 
+            { 
+                EntityState.Added,
+                EntityState.Modified
+            };
+
             foreach (var entry in base.ChangeTracker.Entries<BaseEntity>()
-                .Where(q => q.State == EntityState.Added || q.State == EntityState.Modified)) 
+                .Where(q => states.Contains(q.State))) 
             {
                 entry.Entity.DateModifiedUtc = DateTime.UtcNow;
                 entry.Entity.ModifiedBy = _userService.CurrUserId;

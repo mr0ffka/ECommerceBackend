@@ -15,17 +15,11 @@ namespace ECommerce.Persistence.Configurations
         {
             builder.ToTable("Products");
 
-            builder.HasIndex(x => x.PublicId, "IX_Product_PublicId")
-                .IsUnique();
-
             builder
                 .Property(e => e.Id).UseIdentityAlwaysColumn();
 
-            builder
-                .Property(e => e.PublicId)
-                .HasMaxLength(36)
-                .HasDefaultValueSql("uuid_generate_v4()")
-                .IsFixedLength();
+            builder.Property(q => q.Name)
+                .IsRequired();
 
             builder.Property(q => q.Description)
                 .IsRequired();

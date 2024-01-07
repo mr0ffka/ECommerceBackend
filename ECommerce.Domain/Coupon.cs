@@ -9,6 +9,7 @@ namespace ECommerce.Domain
 {
     public class Coupon : BaseEntity
     {
+        public string Code { get; set; }
         public DateTime ValidFromUtc { get; set; }
         public DateTime ValidToUtc { get; set; }
         public int Percentage { get; set; }

@@ -20,7 +20,6 @@ namespace ECommerce.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("ECommerce.Domain.Address", b =>
@@ -53,14 +52,6 @@ namespace ECommerce.Persistence.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
                     b.Property<string>("Region")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -81,9 +72,6 @@ namespace ECommerce.Persistence.Migrations
                         .HasColumnType("character varying(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_Address_PublicId")
-                        .IsUnique();
 
                     b.ToTable("Addresses", (string)null);
                 });
@@ -111,14 +99,6 @@ namespace ECommerce.Persistence.Migrations
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
                     b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
@@ -131,9 +111,6 @@ namespace ECommerce.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_CartItem_PublicId")
-                        .IsUnique();
 
                     b.ToTable("CartItems", (string)null);
                 });
@@ -163,18 +140,7 @@ namespace ECommerce.Persistence.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_Category_PublicId")
-                        .IsUnique();
 
                     b.ToTable("Categories", (string)null);
                 });
@@ -186,6 +152,10 @@ namespace ECommerce.Persistence.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
@@ -204,14 +174,6 @@ namespace ECommerce.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
                     b.Property<DateTime>("ValidFromUtc")
                         .HasColumnType("timestamp with time zone");
 
@@ -220,67 +182,10 @@ namespace ECommerce.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "PublicId" }, "IX_Coupon_PublicId")
+                    b.HasIndex(new[] { "Code" }, "IX_Coupon_Code")
                         .IsUnique();
 
                     b.ToTable("Coupons", (string)null);
-                });
-
-            modelBuilder.Entity("ECommerce.Domain.Example", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DateCreatedUtc")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DateModifiedUtc")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("character varying(70)");
-
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_Example_PublicId")
-                        .IsUnique();
-
-                    b.ToTable("Examples");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            DateCreatedUtc = new DateTime(2024, 1, 4, 0, 9, 4, 499, DateTimeKind.Utc).AddTicks(797),
-                            DateModifiedUtc = new DateTime(2024, 1, 4, 0, 9, 4, 499, DateTimeKind.Utc).AddTicks(803),
-                            Description = "Example description",
-                            Name = "Example name",
-                            PublicId = "da8e00f1-9504-4111-9701-eaa3eafa133d"
-                        });
                 });
 
             modelBuilder.Entity("ECommerce.Domain.Order", b =>
@@ -312,14 +217,6 @@ namespace ECommerce.Persistence.Migrations
                     b.Property<long>("PaymentId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
@@ -336,9 +233,6 @@ namespace ECommerce.Persistence.Migrations
                     b.HasIndex("AddressId");
 
                     b.HasIndex("CouponId");
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_Order_PublicId")
-                        .IsUnique();
 
                     b.ToTable("Orders", (string)null);
                 });
@@ -366,14 +260,6 @@ namespace ECommerce.Persistence.Migrations
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
@@ -381,9 +267,6 @@ namespace ECommerce.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_OrderHistory_PublicId")
-                        .IsUnique();
 
                     b.ToTable("OrderHistories", (string)null);
                 });
@@ -419,14 +302,6 @@ namespace ECommerce.Persistence.Migrations
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
                     b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
@@ -437,9 +312,6 @@ namespace ECommerce.Persistence.Migrations
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_OrderItem_PublicId")
-                        .IsUnique();
 
                     b.ToTable("OrderItems", (string)null);
                 });
@@ -476,20 +348,9 @@ namespace ECommerce.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_Payment_PublicId")
                         .IsUnique();
 
                     b.ToTable("Payments", (string)null);
@@ -519,21 +380,20 @@ namespace ECommerce.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<byte[]>("ImageBase64Value")
+                        .HasColumnType("bytea");
+
                     b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<decimal>("Price")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("numeric")
                         .HasDefaultValue(0m);
-
-                    b.Property<string>("PublicId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character(36)")
-                        .HasDefaultValueSql("uuid_generate_v4()")
-                        .IsFixedLength();
 
                     b.Property<int>("Stock")
                         .ValueGeneratedOnAdd()
@@ -543,9 +403,6 @@ namespace ECommerce.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex(new[] { "PublicId" }, "IX_Product_PublicId")
-                        .IsUnique();
 
                     b.ToTable("Products", (string)null);
                 });

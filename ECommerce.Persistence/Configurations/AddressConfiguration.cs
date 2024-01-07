@@ -15,17 +15,8 @@ namespace ECommerce.Persistence.Configurations
         {
             builder.ToTable("Addresses");
 
-            builder.HasIndex(x => x.PublicId, "IX_Address_PublicId")
-                .IsUnique();
-
             builder
                 .Property(e => e.Id).UseIdentityAlwaysColumn();
-
-            builder
-                .Property(e => e.PublicId)
-                .HasMaxLength(36)
-                .HasDefaultValueSql("uuid_generate_v4()")
-                .IsFixedLength();
 
             builder.Property(q => q.Country)
                 .IsRequired()

@@ -1,6 +1,5 @@
 ﻿using ECommerce.Application.Contracts.Persistence;
 using ECommerce.Application.Extensions;
-using ECommerce.Application.Features.Example.Commands.CreateExample;
 using FluentValidation;
 using Microsoft.Extensions.Options;
 using System;

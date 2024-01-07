@@ -73,11 +73,6 @@ namespace ECommerce.Identity.Services
             return response;
         }
 
-        public async Task Logout()
-        {
-            await _signInManager.SignOutAsync();
-        }
-
         public async Task<AuthResponse> VerifyRefreshToken(AuthRefreshRequest request)
         {
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
