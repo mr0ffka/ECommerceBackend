@@ -22,7 +22,7 @@ namespace ECommerce.Api.Controllers.Admin
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Create(CreateCommand command)
+        public async Task<ActionResult> Create([FromBody] CreateCommand command)
         {
             var entityId = await _mediator.Send(command);
             return CreatedAtAction(nameof(Create), new { id = entityId });
@@ -32,8 +32,9 @@ namespace ECommerce.Api.Controllers.Admin
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Update(UpdateCommand command)
+        public async Task<ActionResult> Update(long id, [FromBody] UpdateCommand command)
         {
+            command.Id = command.Id == 0 ? id : command.Id;
             await _mediator.Send(command);
             return NoContent();
         }
@@ -43,8 +44,9 @@ namespace ECommerce.Api.Controllers.Admin
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
 
-        public async Task<ActionResult> Delete(DeleteCommand command)
+        public async Task<ActionResult> Delete(long id)
         {
+            var command = new DeleteCommand { Id = id };
             await _mediator.Send(command);
             return NoContent();
         }
