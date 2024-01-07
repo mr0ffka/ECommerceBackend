@@ -21,7 +21,7 @@ namespace ECommerce.Application.Features.Categories.Commands.Create
 
             RuleFor(p => p)
                 .MustAsync(Unique)
-                .WithMessage("Example already exists");
+                .WithMessage("Category already exists");
         }
 
         private Task<bool> Unique(CreateCommand command, CancellationToken token)

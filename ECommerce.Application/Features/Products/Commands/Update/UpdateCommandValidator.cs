@@ -13,6 +13,10 @@ namespace ECommerce.Application.Features.Products.Commands.Update
             _repository = repository;
             _categoryRepository = categoryRepository;
 
+            RuleFor(p => p)
+                .MustAsync(Exists)
+                .WithMessage("Product do not exists");
+
             RuleFor(p => p.Name)
                 .NotNull()
                 .NotEmpty().WithMessage("{PropertyName} is required");
@@ -40,7 +44,7 @@ namespace ECommerce.Application.Features.Products.Commands.Update
 
             RuleFor(p => p)
                 .MustAsync(CategoryExists)
-                .WithMessage("Category not exists");
+                .WithMessage("Product do not exists");
         }
 
         private Task<bool> NameUnique(UpdateCommand command, CancellationToken token)
@@ -51,6 +55,11 @@ namespace ECommerce.Application.Features.Products.Commands.Update
         private async Task<bool> CategoryExists(UpdateCommand command, CancellationToken token)
         {
             return await _categoryRepository.Exists(command.CategoryId);
+        }
+
+        private async Task<bool> Exists(UpdateCommand command, CancellationToken token)
+        {
+            return await _repository.Exists(command.Id);
         }
     }
 }
