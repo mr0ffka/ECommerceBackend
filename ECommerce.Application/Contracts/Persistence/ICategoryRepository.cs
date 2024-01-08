@@ -1,5 +1,4 @@
-﻿using ECommerce.Application.Contracts.Common;
-using ECommerce.Application.Features.Categories.Queries.GetList;
+﻿using ECommerce.Application.Features.Categories.Queries.GetList;
 using ECommerce.Application.Models.Pager;
 using ECommerce.Domain;
 

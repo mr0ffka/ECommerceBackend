@@ -4,13 +4,7 @@ using ECommerce.Application.Models.Email;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Org.BouncyCastle.Asn1.Pkcs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace ECommerce.Infrastructure.EmailService
 {

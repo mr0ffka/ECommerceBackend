@@ -1,13 +1,7 @@
 ﻿using ECommerce.Application.Contracts.Email;
 using ECommerce.Application.Models.Email;
-using ECommerce.Application.Models.Identity;
 using ECommerce.Identity.Models;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.Identity.Notifications.Emails
 {

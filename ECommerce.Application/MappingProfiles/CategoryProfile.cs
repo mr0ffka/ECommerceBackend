@@ -3,7 +3,6 @@ using ECommerce.Application.Features.Categories.Commands.Create;
 using ECommerce.Application.Features.Categories.Commands.Update;
 using ECommerce.Application.Features.Categories.Queries.GetById;
 using ECommerce.Application.Features.Categories.Queries.GetList;
-using ECommerce.Application.Features.Products.Queries.GetList;
 using ECommerce.Domain;
 
 namespace ECommerce.Application.MappingProfiles

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ECommerce.Application.Features.Coupons.Queries.GetList
+﻿namespace ECommerce.Application.Features.Coupons.Queries.GetList
 {
     public class CouponListDto
     {

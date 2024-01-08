@@ -1,20 +1,13 @@
 ﻿using ECommerce.Application.Contracts.Identity;
-using ECommerce.Application.Exceptions;
 using ECommerce.Application.Features.Addresses.Commands.Create;
-using ECommerce.Application.Features.Addresses.Commands.Update;
 using ECommerce.Application.Features.Addresses.Commands.Delete;
-//using ECommerce.Application.Features.Addresses.Queries.GetById;
-//using ECommerce.Application.Features.Addresses.Queries.GetList;
-using ECommerce.Application.Models.Identity;
+using ECommerce.Application.Features.Addresses.Commands.Update;
+using ECommerce.Application.Features.Addresses.Queries.GetById;
+using ECommerce.Application.Features.Addresses.Queries.GetList;
 using ECommerce.Application.Models.Pager;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Org.BouncyCastle.Asn1.Ocsp;
-using ECommerce.Application.Features.Addresses.Queries.GetById;
-using ECommerce.Application.Features.Addresses.Queries.GetList;
 
 namespace ECommerce.Api.Controllers
 {

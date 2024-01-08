@@ -2,13 +2,7 @@
 using ECommerce.Application.Contracts.Logging;
 using ECommerce.Application.Contracts.Persistence;
 using ECommerce.Application.Exceptions;
-using ECommerce.Application.Features.Products.Queries.Get;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.Application.Features.Products.Queries.Get
 {

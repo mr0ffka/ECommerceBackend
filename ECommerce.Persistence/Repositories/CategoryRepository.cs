@@ -1,16 +1,10 @@
-﻿using ECommerce.Application.Contracts.Common;
-using ECommerce.Application.Contracts.Persistence;
+﻿using ECommerce.Application.Contracts.Persistence;
 using ECommerce.Application.Features.Categories.Queries.GetList;
 using ECommerce.Application.Models.Pager;
 using ECommerce.Domain;
 using ECommerce.Persistence.DbContext;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.Persistence.Repositories
 {

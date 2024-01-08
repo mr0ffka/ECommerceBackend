@@ -1,12 +1,5 @@
-﻿using ECommerce.Application.Extensions;
-using ECommerce.Application.Features.Products.Queries.Get;
-using ECommerce.Application.Models.Pager;
+﻿using ECommerce.Application.Models.Pager;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.Application.Features.Products.Queries.GetList
 {

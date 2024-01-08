@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ECommerce.Application.Extensions
+﻿namespace ECommerce.Application.Extensions
 {
     public static class EnumExtensions
     {

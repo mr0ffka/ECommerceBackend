@@ -1,9 +1,4 @@
-﻿using ECommerce.Application.Contracts.Common;
-using ECommerce.Application.Extensions;
-using ECommerce.Application.Features.Categories.Queries.GetList;
-using ECommerce.Application.Models.Pager;
-using ECommerce.Domain;
-using ECommerce.Domain.Common;
+﻿using ECommerce.Domain.Common;
 
 namespace ECommerce.Application.Contracts.Persistence
 {

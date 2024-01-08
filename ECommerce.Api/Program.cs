@@ -1,14 +1,13 @@
+using ECommerce.Api.Middleware;
 using ECommerce.Application;
+using ECommerce.Identity;
+using ECommerce.Identity.DbContext;
 using ECommerce.Infrastructure;
 using ECommerce.Persistence;
-using ECommerce.Identity;
-using ECommerce.Api.Middleware;
-using Serilog;
-using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.Hosting;
 using ECommerce.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
-using ECommerce.Identity.DbContext;
+using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,12 +1,6 @@
 ﻿using ECommerce.Application.Contracts.Identity;
-using ECommerce.Application.Exceptions;
 using ECommerce.Application.Models.Identity;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace ECommerce.Api.Controllers
 {

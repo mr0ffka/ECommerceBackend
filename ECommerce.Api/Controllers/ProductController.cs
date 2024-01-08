@@ -1,12 +1,7 @@
-﻿using ECommerce.Application.Contracts.Identity;
-using ECommerce.Application.Exceptions;
-using ECommerce.Application.Features.Products.Queries.Get;
+﻿using ECommerce.Application.Features.Products.Queries.Get;
 using ECommerce.Application.Features.Products.Queries.GetList;
-using ECommerce.Application.Models.Identity;
 using ECommerce.Application.Models.Pager;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers
