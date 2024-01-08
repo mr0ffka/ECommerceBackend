@@ -10,7 +10,8 @@ namespace ECommerce.Application.Contracts.Identity
     public interface IUserService
     {
         public string CurrUserId { get; }
-        Task<List<User>> GetUsers();
-        Task<User> GetUser(string id);
+        public bool IsCurrUserAdmin { get; }
+        Task<List<UserDto>> GetUsers();
+        Task<UserDto> GetUser(string id);
     }
 }

@@ -34,6 +34,6 @@ public class GetListQueryHandler : IRequestHandler<GetListQuery, PagedResult<Pro
 
         var mappedEntities = _mapper.Map<List<ProductDto>>(entities);
 
-        return new PagedResult<ProductDto>(mappedEntities, request.pager.TotalPages);
+        return new PagedResult<ProductDto>(mappedEntities, request.pager.TotalRows, request.pager.TotalPages);
     }
 }

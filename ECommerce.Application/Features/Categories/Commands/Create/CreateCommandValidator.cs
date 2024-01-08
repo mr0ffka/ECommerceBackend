@@ -15,10 +15,6 @@ namespace ECommerce.Application.Features.Categories.Commands.Create
                 .NotNull()
                 .NotEmpty().WithMessage("{PropertyName} is required");
 
-            RuleFor(p => p.Name)
-                .NotNull()
-                .NotEmpty().WithMessage("{PropertyName} is required");
-
             RuleFor(p => p)
                 .MustAsync(Unique)
                 .WithMessage("Category already exists");

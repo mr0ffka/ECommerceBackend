@@ -11,28 +11,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECommerce.Application.Features.Categories.Queries.GetList
+namespace ECommerce.Application.Features.Addresses.Queries.GetList
 {
-    public class GetListQueryHandler : IRequestHandler<GetListQuery, PagedResult<CategoryListDto>>
+    public class GetListQueryHandler : IRequestHandler<GetListQuery, PagedResult<AddressListDto>>
     {
-        private readonly ICategoryRepository _repository;
+        private readonly IAddressRepository _repository;
         private readonly IMapper _mapper;
 
         public GetListQueryHandler(
-            ICategoryRepository repository,
+            IAddressRepository repository,
             IMapper mapper
             )
         {
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<PagedResult<CategoryListDto>> Handle(GetListQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResult<AddressListDto>> Handle(GetListQuery request, CancellationToken cancellationToken)
         {
             var entities = await _repository.GetListAsync(request.filter, request.pager);
 
-            var mappedEntities = _mapper.Map<List<CategoryListDto>>(entities);
+            var mappedEntities = _mapper.Map<List<AddressListDto>>(entities);
 
-            return new PagedResult<CategoryListDto>(mappedEntities, request.pager.TotalRows, request.pager.TotalPages);
+            return new PagedResult<AddressListDto>(mappedEntities, request.pager.TotalRows, request.pager.TotalPages);
         }
     }
 }

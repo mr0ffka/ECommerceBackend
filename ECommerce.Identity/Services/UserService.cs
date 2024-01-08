@@ -28,11 +28,12 @@ namespace ECommerce.Identity.Services
         }
 
         public string CurrUserId { get => _contextAccessor.HttpContext?.User?.FindFirstValue("uid"); }
+        public bool IsCurrUserAdmin { get => _contextAccessor.HttpContext?.User?.IsInRole("Administrator") ?? false; }
 
-        public async Task<User> GetUser(string id)
+        public async Task<UserDto> GetUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            return new User
+            return new UserDto
             {
                 Id = user.Id,
                 Email = user.Email,
@@ -41,10 +42,10 @@ namespace ECommerce.Identity.Services
             };
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<UserDto>> GetUsers()
         {
             var users = await _userManager.GetUsersInRoleAsync("User");
-            return users.Select(u => new User
+            return users.Select(u => new UserDto
             {
                 Id = u.Id,
                 Email = u.Email,

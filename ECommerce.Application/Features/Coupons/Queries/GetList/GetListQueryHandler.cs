@@ -32,7 +32,7 @@ namespace ECommerce.Application.Features.Coupons.Queries.GetList
 
             var mappedEntities = _mapper.Map<List<CouponListDto>>(entities);
 
-            return new PagedResult<CouponListDto>(mappedEntities, request.pager.TotalPages);
+            return new PagedResult<CouponListDto>(mappedEntities, request.pager.TotalRows, request.pager.TotalPages);
         }
     }
 }
