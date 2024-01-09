@@ -33,7 +33,7 @@ namespace ECommerce.Api.Controllers.Admin
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Update(long id, [FromBody] UpdateCommand command)
+        public async Task<ActionResult> Update(long id, [FromForm] UpdateCommand command)
         {
             command.Id = command.Id == 0 ? id : command.Id;
             await _mediator.Send(command);
