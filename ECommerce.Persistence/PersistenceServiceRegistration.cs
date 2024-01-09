@@ -1,14 +1,10 @@
-﻿using ECommerce.Application.Contracts.Persistence;
+﻿using ECommerce.Application.Contracts.Files;
+using ECommerce.Application.Contracts.Persistence;
 using ECommerce.Persistence.DbContext;
 using ECommerce.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.Persistence
 {
@@ -27,6 +23,9 @@ namespace ECommerce.Persistence
             services.AddScoped(typeof(ICouponRepository), typeof(CouponRepository));
             services.AddScoped(typeof(IAddressRepository), typeof(AddressRepository));
             services.AddScoped(typeof(ICartItemRepository), typeof(CartItemRepository));
+            services.AddScoped(typeof(IPaymentRepository), typeof(PaymentRepository));
+            services.AddScoped(typeof(IFileRepository), typeof(FileRepository));
+            services.AddScoped(typeof(IProductFileRepository), typeof(ProductFileRepository));
 
             return services;
         }

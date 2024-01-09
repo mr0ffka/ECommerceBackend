@@ -11,7 +11,7 @@ namespace ECommerce.Application.Contracts.Identity
     {
         public string CurrUserId { get; }
         public bool IsCurrUserAdmin { get; }
-        Task<List<UserDto>> GetUsers();
-        Task<UserDto> GetUser(string id);
+        Task<List<UserDto>> GetUsersAsync();
+        Task<UserDto> GetUserAsync(string id);
     }
 }

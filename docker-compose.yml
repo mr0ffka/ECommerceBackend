@@ -24,6 +24,9 @@ services:
       - "8080:8080"
     networks:
       - default
+    volumes:
+      - ecommerce_data:/app/.storage
+      - ecommerce_data:/app/.logs
   app_db:
     image: postgres:latest
     container_name: app_db
@@ -54,4 +57,7 @@ services:
 volumes:
   app_db_data:
     name: app_db_data
+    driver: local
+  ecommerce_data:
+    name: ecommerce_data
     driver: local

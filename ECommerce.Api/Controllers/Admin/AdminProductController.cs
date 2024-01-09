@@ -1,5 +1,6 @@
 ﻿using ECommerce.Application.Features.Products.Commands.Create;
 using ECommerce.Application.Features.Products.Commands.Delete;
+using ECommerce.Application.Features.Products.Commands.DeleteFile;
 using ECommerce.Application.Features.Products.Commands.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,7 @@ namespace ECommerce.Api.Controllers.Admin
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Create([FromBody] CreateCommand command)
+        public async Task<ActionResult> Create([FromForm] CreateCommand command)
         {
             var entityId = await _mediator.Send(command);
             return CreatedAtAction(nameof(Create), new { id = entityId });
@@ -47,6 +48,18 @@ namespace ECommerce.Api.Controllers.Admin
         public async Task<ActionResult> Delete(long id)
         {
             var command = new DeleteCommand { Id = id };
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
+        [HttpDelete("{productId}/file/{fileId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+
+        public async Task<ActionResult> DeleteFile(long productId, long fileId)
+        {
+            var command = new DeleteFileCommand { ProductId = productId, FileId = fileId };
             await _mediator.Send(command);
             return NoContent();
         }

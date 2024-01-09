@@ -63,7 +63,8 @@ namespace ECommerce.Identity.Services
                 Id = user.Id,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtToken),
                 RefreshToken = jwtRefreshToken,
-                Email = user.Email,
+                Email = user.Email!,
+                Roles = (await _userManager.GetRolesAsync(user)).ToList(),
             };
 
             return response;

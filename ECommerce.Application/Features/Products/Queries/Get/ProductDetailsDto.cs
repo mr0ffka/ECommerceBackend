@@ -9,6 +9,6 @@ public class ProductDetailsDto
     public string Description { get; set; }
     public decimal Price { get; set; }
     public int Stock { get; set; }
-    public byte[]? ImageBase64Value { get; set; }
     public CategoryDto Category { get; set; }
+    public List<long> FileIds { get; set; }
 }

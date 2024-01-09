@@ -29,7 +29,7 @@ namespace ECommerce.Application.Features.Products.Commands.Delete
 
             if (entity == null)
             {
-                throw new NotFoundException(nameof(Category), request.Id);
+                throw new NotFoundException(nameof(Product), request.Id);
             }
 
             await _repository.DeleteAsync(entity);

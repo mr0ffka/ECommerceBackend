@@ -27,6 +27,9 @@ namespace ECommerce.Persistence.DbContext
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<ProductFile> ProductFiles { get; set; }
+        public DbSet<UserUsedCoupon> UserUsedCoupons { get; set; }
+        public DbSet<Domain.File> Files { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

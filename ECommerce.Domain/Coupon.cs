@@ -8,6 +8,7 @@ namespace ECommerce.Domain
         public DateTime ValidFromUtc { get; set; }
         public DateTime ValidToUtc { get; set; }
         public int Percentage { get; set; }
+        public int? AvailableAmount { get; set; }
 
 
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();

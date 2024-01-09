@@ -153,6 +153,9 @@ namespace ECommerce.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<long>("Id"));
 
+                    b.Property<int?>("AvailableAmount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("text");
@@ -188,6 +191,43 @@ namespace ECommerce.Persistence.Migrations
                     b.ToTable("Coupons", (string)null);
                 });
 
+            modelBuilder.Entity("ECommerce.Domain.File", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DateCreatedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModifiedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Files", (string)null);
+                });
+
             modelBuilder.Entity("ECommerce.Domain.Order", b =>
                 {
                     b.Property<long>("Id")
@@ -217,9 +257,8 @@ namespace ECommerce.Persistence.Migrations
                     b.Property<long>("PaymentId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("numeric");
@@ -260,9 +299,8 @@ namespace ECommerce.Persistence.Migrations
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -344,9 +382,11 @@ namespace ECommerce.Persistence.Migrations
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("PaymentMethod")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -380,9 +420,6 @@ namespace ECommerce.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("ImageBase64Value")
-                        .HasColumnType("bytea");
-
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
 
@@ -405,6 +442,73 @@ namespace ECommerce.Persistence.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products", (string)null);
+                });
+
+            modelBuilder.Entity("ECommerce.Domain.ProductFile", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DateCreatedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModifiedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("FileId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductFiles", (string)null);
+                });
+
+            modelBuilder.Entity("ECommerce.Domain.UserUsedCoupon", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CouponId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DateCreatedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModifiedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserUsedCoupons", (string)null);
                 });
 
             modelBuilder.Entity("ECommerce.Domain.CartItem", b =>
@@ -489,6 +593,26 @@ namespace ECommerce.Persistence.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("ECommerce.Domain.ProductFile", b =>
+                {
+                    b.HasOne("ECommerce.Domain.File", "File")
+                        .WithMany("Products")
+                        .HasForeignKey("FileId")
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductFile_FileId");
+
+                    b.HasOne("ECommerce.Domain.Product", "Product")
+                        .WithMany("Files")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductFile_ProductId");
+
+                    b.Navigation("File");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ECommerce.Domain.Address", b =>
                 {
                     b.Navigation("Orders");
@@ -504,6 +628,11 @@ namespace ECommerce.Persistence.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("ECommerce.Domain.File", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("ECommerce.Domain.Order", b =>
                 {
                     b.Navigation("OrderHistories");
@@ -517,6 +646,8 @@ namespace ECommerce.Persistence.Migrations
             modelBuilder.Entity("ECommerce.Domain.Product", b =>
                 {
                     b.Navigation("CartItems");
+
+                    b.Navigation("Files");
 
                     b.Navigation("OrderItems");
                 });

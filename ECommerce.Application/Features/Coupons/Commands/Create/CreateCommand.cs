@@ -8,5 +8,6 @@ namespace ECommerce.Application.Features.Coupons.Commands.Create
         public DateTime ValidFromUtc { get; set; } = DateTime.UtcNow;
         public DateTime ValidToUtc { get; set; }
         public int Percentage { get; set; }
+        public int? AvailableAmount { get; set; }
     }
 }

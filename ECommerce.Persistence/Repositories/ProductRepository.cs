@@ -19,6 +19,7 @@ namespace ECommerce.Persistence.Repositories
             return await _context.Products
                 .AsNoTracking()
                 .Include(x => x.Category)
+                .Include(x => x.Files)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 

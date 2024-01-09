@@ -12,11 +12,20 @@ namespace ECommerce.Application.MappingProfiles
     {
         public ProductProfile() 
         {
-            CreateMap<ProductDto, Product>().ReverseMap();
+            CreateMap<ProductDto, Product>()
+                .ForMember(d => d.Files, o => o.Ignore())
+                .ReverseMap();
+
             CreateMap<Product, SimpleProductDto>();
-            CreateMap<Product, ProductDetailsDto>();
-            CreateMap<CreateCommand, Product>();
-            CreateMap<UpdateCommand, Product>();
+
+            CreateMap<Product, ProductDetailsDto>()
+                .ForMember(d => d.FileIds, o => o.Ignore());
+
+            CreateMap<CreateCommand, Product>()
+                .ForMember(s => s.Files, o => o.Ignore());
+
+            CreateMap<UpdateCommand, Product>()
+                .ForMember(s => s.Files, o => o.Ignore());
         }
     }
 }

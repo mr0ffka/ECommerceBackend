@@ -33,7 +33,7 @@ namespace ECommerce.Application.MappingProfiles
 
         public UserDto Resolve(object source, object destination, string sourceMember, UserDto destMember, ResolutionContext context)
         {
-            return _userService.GetUser(sourceMember).GetAwaiter().GetResult();
+            return _userService.GetUserAsync(sourceMember).GetAwaiter().GetResult();
         }
     }
     #endregion

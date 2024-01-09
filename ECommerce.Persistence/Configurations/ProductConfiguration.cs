@@ -40,6 +40,10 @@ namespace ECommerce.Persistence.Configurations
             builder.HasMany(e => e.OrderItems)
                .WithOne(e => e.Product)
                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasMany(e => e.Files)
+               .WithOne(e => e.Product)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

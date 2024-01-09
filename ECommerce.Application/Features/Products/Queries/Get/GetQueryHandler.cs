@@ -10,15 +10,18 @@ namespace ECommerce.Application.Features.Products.Queries.Get
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _repository;
+        private readonly IProductFileRepository _productFileRepository;
         private readonly IAppLogger<GetQueryHandler> _logger;
 
         public GetQueryHandler(
             IMapper mapper,
             IProductRepository repository,
+            IProductFileRepository productFileRepository,
             IAppLogger<GetQueryHandler> logger)
         {
             _mapper = mapper;
             _repository = repository;
+            _productFileRepository = productFileRepository;
             _logger = logger;
         }
 
@@ -32,6 +35,9 @@ namespace ECommerce.Application.Features.Products.Queries.Get
             }
 
             var result = _mapper.Map<ProductDetailsDto>(entity);
+
+            var files = await _productFileRepository.GetFileIdsByProductIdAsync(request.Id);
+            result.FileIds = files;
 
             return result;
         }
