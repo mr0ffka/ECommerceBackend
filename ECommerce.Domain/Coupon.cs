@@ -10,7 +10,7 @@ namespace ECommerce.Domain
         public int Percentage { get; set; }
         public int? AvailableAmount { get; set; }
 
-
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public virtual ICollection<UserUsedCoupon> Users { get; set; } = new HashSet<UserUsedCoupon>();
     }
 }

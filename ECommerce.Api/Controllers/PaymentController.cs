@@ -29,14 +29,14 @@ namespace ECommerce.Api.Controllers.Admin
             return CreatedAtAction(nameof(Create), new { id = entityId });
         }
 
-        [HttpGet("methods")]
+        [HttpGet("method/list")]
         public async Task<ActionResult<List<EnumValueDescription>>> Methods()
         {
             var enums = await _mediator.Send(new GetPaymentMethodListQuery());
             return Ok(enums);
         }
 
-        [HttpGet("statuses")]
+        [HttpGet("status/list")]
         public async Task<ActionResult<List<EnumValueDescription>>> Statuses()
         {
             var enums = await _mediator.Send(new GetPaymentStatusListQuery());

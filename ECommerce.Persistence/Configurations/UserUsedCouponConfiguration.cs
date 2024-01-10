@@ -18,6 +18,12 @@ namespace ECommerce.Persistence.Configurations
 
             builder.Property(q => q.CouponId)
                 .IsRequired();
+
+            builder.HasOne(l => l.Coupon)
+               .WithMany(c => c.Users)
+               .HasForeignKey(c => c.CouponId)
+               .OnDelete(DeleteBehavior.ClientSetNull)
+               .HasConstraintName("FK_UserUsedCoupon_CouponId");
         }
     }
 }

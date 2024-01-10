@@ -6,5 +6,6 @@ namespace ECommerce.Domain
     {
         public string UserId { get; set; }
         public long CouponId { get; set; }
+        public Coupon Coupon { get; set; }
     }
 }

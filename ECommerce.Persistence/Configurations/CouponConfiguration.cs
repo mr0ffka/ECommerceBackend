@@ -32,6 +32,10 @@ namespace ECommerce.Persistence.Configurations
             builder.HasMany(e => e.Orders)
                .WithOne(e => e.Coupon)
                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(e => e.Users)
+               .WithOne(e => e.Coupon)
+               .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

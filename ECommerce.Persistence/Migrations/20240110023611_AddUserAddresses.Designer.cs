@@ -3,6 +3,7 @@ using System;
 using ECommerce.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ECommerce.Persistence.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    partial class ECommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20240110023611_AddUserAddresses")]
+    partial class AddUserAddresses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -520,6 +523,40 @@ namespace ECommerce.Persistence.Migrations
                     b.ToTable("ProductFiles", (string)null);
                 });
 
+            modelBuilder.Entity("ECommerce.Domain.UserAddress", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AddressId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DateCreatedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DateModifiedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("UserAddresses", (string)null);
+                });
+
             modelBuilder.Entity("ECommerce.Domain.UserUsedCoupon", b =>
                 {
                     b.Property<long>("Id")
@@ -667,6 +704,17 @@ namespace ECommerce.Persistence.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ECommerce.Domain.UserAddress", b =>
+                {
+                    b.HasOne("ECommerce.Domain.Address", "Address")
+                        .WithMany("Users")
+                        .HasForeignKey("AddressId")
+                        .IsRequired()
+                        .HasConstraintName("FK_UserAddress_AddressId");
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("ECommerce.Domain.UserUsedCoupon", b =>
                 {
                     b.HasOne("ECommerce.Domain.Coupon", "Coupon")
@@ -681,6 +729,8 @@ namespace ECommerce.Persistence.Migrations
             modelBuilder.Entity("ECommerce.Domain.Address", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("ECommerce.Domain.Category", b =>
