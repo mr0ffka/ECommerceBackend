@@ -6,8 +6,6 @@ namespace ECommerce.Application.Contracts.Persistence
 {
     public interface IPaymentRepository : IGenericRepository<Payment>
     {
-        //Task<List<Payment>> GetListAsync(ProductFilterDto filter, IPager pager);
         Task<Payment?> GetAsync(long id);
-        //Task<bool> HasUniqueName(string name);
     }
 }

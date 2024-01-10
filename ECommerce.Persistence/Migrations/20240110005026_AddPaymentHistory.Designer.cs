@@ -3,6 +3,7 @@ using System;
 using ECommerce.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ECommerce.Persistence.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    partial class ECommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20240110005026_AddPaymentHistory")]
+    partial class AddPaymentHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,7 +309,7 @@ namespace ECommerce.Persistence.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderHistory", (string)null);
+                    b.ToTable("OrderHistories", (string)null);
                 });
 
             modelBuilder.Entity("ECommerce.Domain.OrderItem", b =>
@@ -434,7 +437,7 @@ namespace ECommerce.Persistence.Migrations
 
                     b.HasIndex("PaymentId");
 
-                    b.ToTable("PaymentHistory", (string)null);
+                    b.ToTable("PaymentHistories", (string)null);
                 });
 
             modelBuilder.Entity("ECommerce.Domain.Product", b =>

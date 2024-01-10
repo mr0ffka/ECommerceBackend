@@ -34,7 +34,7 @@ namespace ECommerce.Api.Controllers.Admin
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> ChangeUpdate(long paymentId, [FromBody] ChangeStatusCommand command)
+        public async Task<ActionResult> ChangeStatus(long paymentId, [FromBody] ChangeStatusCommand command)
         {
             command.PaymentId = command.PaymentId == 0 ? paymentId : command.PaymentId;
             await _mediator.Send(command);

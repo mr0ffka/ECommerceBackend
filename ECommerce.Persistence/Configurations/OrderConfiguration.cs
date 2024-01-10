@@ -38,7 +38,7 @@ namespace ECommerce.Persistence.Configurations
             builder.Navigation(b => b.Address)
                    .AutoInclude();
 
-            builder.HasMany(e => e.OrderHistories)
+            builder.HasMany(e => e.OrderHistory)
                .WithOne(e => e.Order)
                .OnDelete(DeleteBehavior.Cascade);
 

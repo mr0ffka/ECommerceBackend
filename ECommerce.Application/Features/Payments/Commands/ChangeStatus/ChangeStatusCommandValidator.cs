@@ -1,6 +1,5 @@
 ﻿using ECommerce.Application.Contracts.Persistence;
 using ECommerce.Application.Features.Payments.Commands.ChangeStatus;
-using ECommerce.Domain.Enumerations.Payments;
 using FluentValidation;
 
 namespace ECommerce.Application.Features.Payments.Commands.Create

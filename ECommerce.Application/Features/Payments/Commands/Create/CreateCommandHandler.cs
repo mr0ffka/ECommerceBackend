@@ -11,15 +11,18 @@ namespace ECommerce.Application.Features.Payments.Commands.Create
     {
         private readonly IMapper _mapper;
         private readonly IPaymentRepository _repository;
+        private readonly IPaymentHistoryRepository _historyRepository;
         private readonly IAppLogger<CreateCommandHandler> _logger;
 
         public CreateCommandHandler(
             IMapper mapper,
             IPaymentRepository repository,
+            IPaymentHistoryRepository historyRepository,
             IAppLogger<CreateCommandHandler> logger)
         {
             _mapper = mapper;
             _repository = repository;
+            _historyRepository = historyRepository;
             _logger = logger;
         }
 
@@ -39,6 +42,10 @@ namespace ECommerce.Application.Features.Payments.Commands.Create
 
             // add to db
             await _repository.CreateAsync(entity);
+
+            // add history entity
+            var historyEntity = _mapper.Map<Domain.PaymentHistory>(entity);
+            await _historyRepository.CreateAsync(historyEntity);
 
             // return id
             return entity.Id;

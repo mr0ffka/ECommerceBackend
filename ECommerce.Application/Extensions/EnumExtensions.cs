@@ -1,4 +1,7 @@
-﻿namespace ECommerce.Application.Extensions
+﻿using ECommerce.Application.Models.Common;
+using ECommerce.Domain.Enumerations.Payments;
+
+namespace ECommerce.Application.Extensions
 {
     public static class EnumExtensions
     {
@@ -13,6 +16,25 @@
             }
 
             return displayAttribute?.Description ?? "";
+        }
+
+        public static EnumValueDescription GetValueDescription(this Enum value)
+        {
+            var dto = new EnumValueDescription();
+            dto.Value = value;
+            dto.Description = value.Description();
+            return dto;
+        }
+
+        public static List<EnumValueDescription> GetEnumValueDescriptionList<T>() where T : Enum
+        {
+            var list = new List<EnumValueDescription>();
+            Enum.GetValues(typeof(T))
+                .Cast<T>()
+                .ToList()
+                .ForEach(x => list.Add(x.GetValueDescription()));
+
+            return list;
         }
     }
 }

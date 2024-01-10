@@ -26,6 +26,12 @@ namespace ECommerce.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteRangeAsync(IEnumerable<T> entities)
+        {
+            _context.RemoveRange(entities);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<bool> Exists(long id)
         {
             return await _context.Set<T>()

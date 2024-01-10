@@ -18,6 +18,9 @@ namespace ECommerce.Application.MappingProfiles
                 .ForMember(d => d.PaymentStatus, o => o.MapFrom(s => PaymentStatus.Pending));
             CreateMap<UpdateCommand, Payment>();
             CreateMap<ChangeStatusCommand, Payment>();
+            CreateMap<Payment, PaymentHistory>()
+                .ForMember(d => d.PaymentId, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.Payment, o => o.Ignore());
         }
     }
 }

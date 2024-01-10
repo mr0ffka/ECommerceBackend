@@ -11,16 +11,19 @@ namespace ECommerce.Application.Features.Payments.Commands.Update
     {
         private readonly IMapper _mapper;
         private readonly IPaymentRepository _repository;
+        private readonly IPaymentHistoryRepository _historyRepository;
         private readonly IAppLogger<UpdateCommandHandler> _logger;
 
         public UpdateCommandHandler(
             IMapper mapper, 
+            IAppLogger<UpdateCommandHandler> logger,
             IPaymentRepository repository,
-            IAppLogger<UpdateCommandHandler> logger)
+            IPaymentHistoryRepository historyRepository)
         {
             _mapper = mapper;
-            _repository = repository;
             _logger = logger;
+            _repository = repository;
+            _historyRepository = historyRepository;
         }
 
         public async Task<Unit> Handle(UpdateCommand request, CancellationToken cancellationToken)
@@ -39,6 +42,9 @@ namespace ECommerce.Application.Features.Payments.Commands.Update
             _mapper.Map(request, entity);
 
             await _repository.UpdateAsync(entity);
+
+            var historyEntity = _mapper.Map<Domain.PaymentHistory>(entity);
+            await _historyRepository.CreateAsync(historyEntity);
 
             return Unit.Value;
         }

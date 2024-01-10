@@ -15,7 +15,7 @@ namespace ECommerce.Domain
         public Coupon Coupon { get; set; }
         public long PaymentId { get; set; }
         public Payment Payment { get; set; }    
-        public virtual ICollection<OrderHistory> OrderHistories { get; set; } = new HashSet<OrderHistory>();
+        public virtual ICollection<OrderHistory> OrderHistory { get; set; } = new HashSet<OrderHistory>();
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
 
     }

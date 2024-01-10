@@ -20,6 +20,10 @@ namespace ECommerce.Persistence.Configurations
             builder.HasOne(x => x.Order)
                 .WithOne(x => x.Payment)
                 .HasForeignKey<Payment>(x => x.OrderId);
+
+            builder.HasMany(e => e.PaymentHistory)
+               .WithOne(e => e.Payment)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

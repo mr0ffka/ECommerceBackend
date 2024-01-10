@@ -1,4 +1,7 @@
 ﻿using ECommerce.Application.Features.Payments.Commands.Create;
+using ECommerce.Application.Features.Payments.Queries.GetPaymentMethodList;
+using ECommerce.Application.Features.Payments.Queries.GetPaymentStatusList;
+using ECommerce.Application.Models.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +27,20 @@ namespace ECommerce.Api.Controllers.Admin
         {
             var entityId = await _mediator.Send(command);
             return CreatedAtAction(nameof(Create), new { id = entityId });
+        }
+
+        [HttpGet("methods")]
+        public async Task<ActionResult<List<EnumValueDescription>>> Methods()
+        {
+            var enums = await _mediator.Send(new GetPaymentMethodListQuery());
+            return Ok(enums);
+        }
+
+        [HttpGet("statuses")]
+        public async Task<ActionResult<List<EnumValueDescription>>> Statuses()
+        {
+            var enums = await _mediator.Send(new GetPaymentStatusListQuery());
+            return Ok(enums);
         }
     }
 }

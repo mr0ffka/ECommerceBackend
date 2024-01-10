@@ -8,7 +8,7 @@ namespace ECommerce.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<OrderHistory> builder)
         {
-            builder.ToTable("OrderHistories");
+            builder.ToTable("OrderHistory");
 
             builder
                 .Property(e => e.Id).UseIdentityAlwaysColumn();
@@ -17,7 +17,7 @@ namespace ECommerce.Persistence.Configurations
                 .IsRequired();
 
             builder.HasOne(l => l.Order)
-               .WithMany(c => c.OrderHistories)
+               .WithMany(c => c.OrderHistory)
                .HasForeignKey(c => c.OrderId)
                .OnDelete(DeleteBehavior.ClientSetNull)
                .HasConstraintName("FK_OrderHistory_OrderId");

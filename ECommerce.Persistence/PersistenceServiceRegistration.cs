@@ -23,6 +23,7 @@ namespace ECommerce.Persistence
             services.AddScoped(typeof(ICouponRepository), typeof(CouponRepository));
             services.AddScoped(typeof(IAddressRepository), typeof(AddressRepository));
             services.AddScoped(typeof(ICartItemRepository), typeof(CartItemRepository));
+            services.AddScoped(typeof(IPaymentHistoryRepository), typeof(PaymentHistoryRepository));
             services.AddScoped(typeof(IPaymentRepository), typeof(PaymentRepository));
             services.AddScoped(typeof(IFileRepository), typeof(FileRepository));
             services.AddScoped(typeof(IProductFileRepository), typeof(ProductFileRepository));
