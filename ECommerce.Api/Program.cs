@@ -6,6 +6,7 @@ using ECommerce.Infrastructure;
 using ECommerce.Persistence;
 using ECommerce.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -80,6 +81,8 @@ builder.Services.AddSwaggerGen(options =>
     options.CustomSchemaIds(type => type.FullName);
 });
 
+builder.Services.AddDirectoryBrowser();
+
 var app = builder.Build();
 
 // Apply migrations
@@ -111,6 +114,14 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 
 //app.UseHttpsRedirection();
+
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["FileStorage:DefaultPath"]!)),
+    RequestPath = "/storage",
+    EnableDirectoryBrowsing = true
+});
 
 app.UseCors("all");
 

@@ -32,5 +32,14 @@ namespace ECommerce.Persistence.Repositories
                 .Select(x => x.FileId)
                 .ToListAsync();
         }
+
+        public async Task<List<string>> GetFileUrlsByProductIdAsync(long productId)
+        {
+            return await _context.ProductFiles
+                .Include(x => x.File)
+                .Where(x => x.ProductId == productId)
+                .Select(x => x.File.Path.Substring(3))
+                .ToListAsync();
+        }
     }
 }

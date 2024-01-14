@@ -19,7 +19,7 @@ namespace ECommerce.Application.MappingProfiles
             CreateMap<Product, SimpleProductDto>();
 
             CreateMap<Product, ProductDetailsDto>()
-                .ForMember(d => d.FileIds, o => o.Ignore());
+                .ForMember(d => d.ImageUrls, o => o.Ignore());
 
             CreateMap<CreateCommand, Product>()
                 .ForMember(s => s.Files, o => o.Ignore());

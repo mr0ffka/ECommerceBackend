@@ -10,5 +10,5 @@ public class ProductDetailsDto
     public decimal Price { get; set; }
     public int Stock { get; set; }
     public CategoryDto Category { get; set; }
-    public List<long> FileIds { get; set; }
+    public List<string> ImageUrls { get; set; }
 }

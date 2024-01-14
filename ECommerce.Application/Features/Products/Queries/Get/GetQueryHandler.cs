@@ -36,8 +36,8 @@ namespace ECommerce.Application.Features.Products.Queries.Get
 
             var result = _mapper.Map<ProductDetailsDto>(entity);
 
-            var files = await _productFileRepository.GetFileIdsByProductIdAsync(request.Id);
-            result.FileIds = files;
+            var files = await _productFileRepository.GetFileUrlsByProductIdAsync(request.Id);
+            result.ImageUrls = files;
 
             return result;
         }
