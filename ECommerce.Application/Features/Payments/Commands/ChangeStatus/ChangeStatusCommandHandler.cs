@@ -29,7 +29,6 @@ namespace ECommerce.Application.Features.Payments.Commands.Create
 
         public async Task<long> Handle(ChangeStatusCommand request, CancellationToken cancellationToken)
         {
-            // validate
             var validator = new ChangeStatusCommandValidator(_repository);
             var validatorResult = await validator.ValidateAsync(request, cancellationToken);
             
@@ -38,16 +37,13 @@ namespace ECommerce.Application.Features.Payments.Commands.Create
                 _logger.LogWarn("Validation errors in change status request for {0}", nameof(Product));
                 throw new BadRequestException("Invalid Payment", validatorResult);
             }
-            // convert to domain entitty object
             var entity = _mapper.Map<Domain.Payment>(request);
 
-            // add to db
             await _repository.UpdateAsync(entity);
 
             var historyEntity = _mapper.Map<Domain.PaymentHistory>(entity);
             await _historyRepository.CreateAsync(historyEntity);
 
-            // return id
             return entity.Id;
         }
     }

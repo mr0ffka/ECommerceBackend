@@ -35,7 +35,6 @@ namespace ECommerce.Application.Features.Products.Commands.Create
 
         public async Task<long> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            // validate
             var validator = new CreateCommandValidator(_repository, _categoryRepository);
             var validatorResult = await validator.ValidateAsync(request, cancellationToken);
 
@@ -45,10 +44,8 @@ namespace ECommerce.Application.Features.Products.Commands.Create
                 throw new BadRequestException("Invalid Product", validatorResult);
             }
 
-            // convert to domain entitty object
             var entity = _mapper.Map<Domain.Product>(request);
 
-            // add to db
             await _repository.CreateAsync(entity);
 
             foreach (var file in request.Files)
@@ -62,7 +59,6 @@ namespace ECommerce.Application.Features.Products.Commands.Create
                 await _productFileRepository.CreateAsync(productFile);
             }
 
-            // return id
             return entity.Id;
         }
     }

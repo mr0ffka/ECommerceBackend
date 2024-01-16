@@ -25,7 +25,6 @@ namespace ECommerce.Application.Features.Categories.Commands.Create
 
         public async Task<long> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            // validate
             var validator = new CreateCommandValidator(_repository);
             var validatorResult = await validator.ValidateAsync(request, cancellationToken);
 
@@ -34,13 +33,10 @@ namespace ECommerce.Application.Features.Categories.Commands.Create
                 _logger.LogWarn("Validation errors in create request for {0}", nameof(Category));
                 throw new BadRequestException("Invalid Category", validatorResult);
             }
-            // convert to domain entitty object
             var entity = _mapper.Map<Domain.Category>(request);
 
-            // add to db
             await _repository.CreateAsync(entity);
 
-            // return id
             return entity.Id;
         }
     }

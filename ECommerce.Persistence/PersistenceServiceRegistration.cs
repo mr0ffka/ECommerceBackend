@@ -27,6 +27,7 @@ namespace ECommerce.Persistence
             services.AddScoped(typeof(IPaymentRepository), typeof(PaymentRepository));
             services.AddScoped(typeof(IFileRepository), typeof(FileRepository));
             services.AddScoped(typeof(IProductFileRepository), typeof(ProductFileRepository));
+            services.AddScoped(typeof(IUserCouponRepository), typeof(UserCouponRepository));
 
             return services;
         }

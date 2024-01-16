@@ -28,7 +28,6 @@ namespace ECommerce.Application.Features.CartItems.Commands.Create
 
         public async Task<long> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            // validate
             var validator = new CreateCommandValidator(_repository, _productRepository);
             var validatorResult = await validator.ValidateAsync(request, cancellationToken);
 
@@ -38,12 +37,10 @@ namespace ECommerce.Application.Features.CartItems.Commands.Create
                 throw new BadRequestException("Invalid CartItem", validatorResult);
             }
 
-            // convert to domain entitty object
             var entity = _mapper.Map<Domain.CartItem>(request);
 
             if (await _repository.Exists(entity))
             {
-                // get old
                 var old = await _repository.GetAsync(entity.UserId, entity.ProductId);
                 old!.Quantity += entity.Quantity;
                 await _repository.UpdateAsync(old);
@@ -52,7 +49,6 @@ namespace ECommerce.Application.Features.CartItems.Commands.Create
 
             await _repository.CreateAsync(entity);
 
-            // return id
             return entity.Id;
         }
     }

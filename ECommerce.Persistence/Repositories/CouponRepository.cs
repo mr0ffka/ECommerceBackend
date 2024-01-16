@@ -21,6 +21,13 @@ namespace ECommerce.Persistence.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Coupon?> GetByCodeAsync(string code)
+        {
+            return await _context.Coupons
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Code == code);
+        }
+
         public async Task<List<Coupon>> GetListAsync(CouponFilterDto filter, IPager pager)
         {
             var predicate = PredicateBuilder.New<Coupon>(true);

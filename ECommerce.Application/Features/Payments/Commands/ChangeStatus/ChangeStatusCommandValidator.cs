@@ -7,12 +7,10 @@ namespace ECommerce.Application.Features.Payments.Commands.Create
     public class ChangeStatusCommandValidator : AbstractValidator<ChangeStatusCommand>
     {
         private readonly IPaymentRepository _repository;
-        //private readonly IOrderRepository _orderRepository;
 
         public ChangeStatusCommandValidator(IPaymentRepository repository)
         {
             _repository = repository;
-            //_orderRepository = orderRepository;
 
             RuleFor(p => p.PaymentMethod)
                 .NotNull().WithMessage("{PropertyName} is required")

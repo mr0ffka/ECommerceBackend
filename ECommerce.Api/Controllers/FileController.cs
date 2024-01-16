@@ -1,9 +1,4 @@
 ﻿using ECommerce.Application.Contracts.Files;
-using ECommerce.Application.Features.Payments.Commands.Create;
-using ECommerce.Application.Features.Payments.Queries.GetPaymentMethodList;
-using ECommerce.Application.Features.Payments.Queries.GetPaymentStatusList;
-using ECommerce.Application.Models.Common;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +14,48 @@ namespace ECommerce.Api.Controllers.Admin
         public FileController(IFileRepository fileRepository)
         {
             _fileRepository = fileRepository;
+        }
+
+        [HttpPost("upload/list")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> UploadFiles(List<IFormFile> files)
+        {
+            var entityIds = await _fileRepository.UploadFilesAsync(files);
+            return CreatedAtAction(nameof(UploadFile), new { ids = entityIds });
+        }
+
+        [HttpPost("upload")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> UploadFile(IFormFile file)
+        {
+            var entityId = await _fileRepository.UploadFileAsync(file);
+            return CreatedAtAction(nameof(UploadFile), new { id = entityId });
+        }
+
+        [HttpDelete("delete/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> Delete(long id)
+        {
+            await _fileRepository.DeleteFileAsync(id);
+            return NoContent();
+        }
+
+        [HttpDelete("delete/list")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> DeleteList([FromQuery] List<long> ids)
+        {
+            await _fileRepository.DeleteFilesAsync(ids);
+            return NoContent();
         }
 
         [HttpGet("{id}")]

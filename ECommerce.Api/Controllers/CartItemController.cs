@@ -4,8 +4,6 @@ using ECommerce.Application.Features.CartItems.Commands.Delete;
 using ECommerce.Application.Features.CartItems.Commands.Update;
 using ECommerce.Application.Features.CartItems.Queries.GetById;
 using ECommerce.Application.Features.CartItems.Queries.GetList;
-//using ECommerce.Application.Features.Addresses.Queries.GetById;
-//using ECommerce.Application.Features.Addresses.Queries.GetList;
 using ECommerce.Application.Models.Pager;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

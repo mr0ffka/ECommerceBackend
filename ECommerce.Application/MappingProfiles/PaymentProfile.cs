@@ -11,9 +11,6 @@ namespace ECommerce.Application.MappingProfiles
     {
         public PaymentProfile() 
         {
-            //CreateMap<ProductDto, Product>().ReverseMap();
-            //CreateMap<Product, SimpleProductDto>();
-            //CreateMap<Product, ProductDetailsDto>();
             CreateMap<CreateCommand, Payment>()
                 .ForMember(d => d.PaymentStatus, o => o.MapFrom(s => PaymentStatus.Pending));
             CreateMap<UpdateCommand, Payment>();

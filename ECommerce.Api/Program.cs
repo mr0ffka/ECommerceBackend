@@ -12,7 +12,6 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Host.UseSerilog(
     (context, loggerConfig) => loggerConfig
         .WriteTo.Console()
@@ -85,23 +84,19 @@ builder.Services.AddDirectoryBrowser();
 
 var app = builder.Build();
 
-// Apply migrations
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ECommerceIdentityDbContext>();
-    //Same as the question
     db.Database.Migrate();
 }
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ECommerceDbContext>();
-    //Same as the question
     db.Database.Migrate();
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

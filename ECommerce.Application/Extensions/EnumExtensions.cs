@@ -1,5 +1,4 @@
 ﻿using ECommerce.Application.Models.Common;
-using ECommerce.Domain.Enumerations.Payments;
 
 namespace ECommerce.Application.Extensions
 {

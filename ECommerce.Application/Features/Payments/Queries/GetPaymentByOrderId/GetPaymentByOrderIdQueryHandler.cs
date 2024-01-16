@@ -27,19 +27,7 @@ namespace ECommerce.Application.Features.Payments.Queries.Get
 
         public async Task<PaymentDto> Handle(GetPaymentByOrderIdQuery request, CancellationToken cancellationToken)
         {
-            //var entity = await _repository.GetAsync(request.Id);
-
-            //if (entity == null)
-            //{
-            //    throw new NotFoundException("Product not found", request.Id);
-            //}
-
-            //var result = _mapper.Map<ProductDetailsDto>(entity);
-
-            //var files = await _productFileRepository.GetFileIdsByProductIdAsync(request.Id);
-            //result.FileIds = files;
-
-            //return result;
+            // [TODO] implement after implementing Orders
             return new PaymentDto();
         }
     }
