@@ -92,9 +92,18 @@ namespace ECommerce.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<bool> HasUniqueCode(string name)
+        public async Task<bool> HasUniqueCode(long? id, string code)
         {
-            return !(await _context.Coupons.AnyAsync(x => x.Code == name));
+            var predicate = PredicateBuilder.New<Coupon>(true);
+
+            if (id.HasValue)
+            {
+                predicate.And(x => x.Id != id.Value);
+            }
+
+            predicate.And(x => x.Code == code);
+
+            return !(await _context.Coupons.Where(predicate).AnyAsync());
         }
     }
 }

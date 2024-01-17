@@ -49,7 +49,7 @@ namespace ECommerce.Application.Features.Coupons.Commands.Update
 
         private async Task<bool> Unique(UpdateCommand command, CancellationToken token)
         {
-            return await _repository.HasUniqueCode(command.Code);
+            return await _repository.HasUniqueCode(command.Id, command.Code);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ECommerce.Application.Contracts.Persistence
         Task<List<Coupon>> GetListAsync(CouponFilterDto filter, IPager pager);
         Task<Coupon?> GetAsync(long id);
         Task<Coupon?> GetByCodeAsync(string code);
-        Task<bool> HasUniqueCode(string name);
+        Task<bool> HasUniqueCode(long? id, string code);
 
     }
 }

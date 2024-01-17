@@ -25,7 +25,7 @@ namespace ECommerce.Persistence.Repositories
             if (coupon is null || !now.IsDateInRange(coupon.ValidFromUtc, coupon.ValidToUtc)) 
                 return false;
 
-            return await _context.UserUsedCoupons.AnyAsync(x => x.UserId == userId && x.CouponId == coupon.Id);
+            return !(await _context.UserUsedCoupons.AnyAsync(x => x.UserId == userId && x.CouponId == coupon.Id));
         }
     }
 }

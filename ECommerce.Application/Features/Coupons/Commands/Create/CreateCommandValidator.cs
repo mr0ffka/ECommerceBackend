@@ -40,7 +40,7 @@ namespace ECommerce.Application.Features.Coupons.Commands.Create
 
         private async Task<bool> Unique(CreateCommand command, CancellationToken token)
         {
-            return await _repository.HasUniqueCode(command.Code);
+            return await _repository.HasUniqueCode(null, command.Code);
         }
     }
 }
