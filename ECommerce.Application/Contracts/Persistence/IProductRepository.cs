@@ -8,7 +8,7 @@ namespace ECommerce.Application.Contracts.Persistence
     {
         Task<List<Product>> GetListAsync(ProductFilterDto filter, IPager pager);
         Task<Product?> GetAsync(long id);
-        Task<bool> HasUniqueName(string name);
+        Task<bool> HasUniqueName(long? id, string name);
 
     }
 }

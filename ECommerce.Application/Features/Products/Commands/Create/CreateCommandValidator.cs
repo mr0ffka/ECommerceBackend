@@ -45,7 +45,7 @@ namespace ECommerce.Application.Features.Products.Commands.Create
 
         private Task<bool> NameUnique(CreateCommand command, CancellationToken token)
         {
-            return _repository.HasUniqueName(command.Name);
+            return _repository.HasUniqueName(null, command.Name);
         }
 
         private async Task<bool> CategoryExists(CreateCommand command, CancellationToken token)

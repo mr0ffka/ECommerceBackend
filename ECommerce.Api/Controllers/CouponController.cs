@@ -58,18 +58,18 @@ namespace ECommerce.Api.Controllers
             return NoContent();
         }
 
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesDefaultResponseType]
-        //[Authorize(Roles = "Administrator")]
-        //public async Task<ActionResult<Application.Features.Coupons.Queries.GetById.CouponDto>> GetById(long id)
-        //{
-        //    var entity = await _mediator.Send(new GetByIdQuery(id));
-        //    return Ok(entity);
-        //}
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult<Application.Features.Coupons.Queries.GetById.CouponDto>> GetById(long id)
+        {
+            var entity = await _mediator.Send(new GetByIdQuery(id));
+            return Ok(entity);
+        }
 
-        [HttpGet("{code}")]
+        [HttpGet("check/{code}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

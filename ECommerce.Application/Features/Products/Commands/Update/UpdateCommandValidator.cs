@@ -21,10 +21,6 @@ namespace ECommerce.Application.Features.Products.Commands.Update
                 .NotNull()
                 .NotEmpty().WithMessage("{PropertyName} is required");
 
-            RuleFor(p => p.Name)
-                .NotNull()
-                .NotEmpty().WithMessage("{PropertyName} is required");
-
             RuleFor(p => p.Price)
                 .NotNull()
                 .NotEmpty()
@@ -49,7 +45,7 @@ namespace ECommerce.Application.Features.Products.Commands.Update
 
         private Task<bool> NameUnique(UpdateCommand command, CancellationToken token)
         {
-            return _repository.HasUniqueName(command.Name);
+            return _repository.HasUniqueName(command.Id, command.Name);
         }
 
         private async Task<bool> CategoryExists(UpdateCommand command, CancellationToken token)
