@@ -1,5 +1,6 @@
 ﻿using ECommerce.Application.Contracts.Files;
 using ECommerce.Application.Exceptions;
+using ECommerce.Application.Models.Simple.File;
 using ECommerce.Persistence.DbContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

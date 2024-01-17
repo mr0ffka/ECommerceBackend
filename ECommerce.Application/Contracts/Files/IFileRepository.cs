@@ -1,4 +1,5 @@
 ﻿using ECommerce.Application.Contracts.Persistence;
+using ECommerce.Application.Models.Simple.File;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

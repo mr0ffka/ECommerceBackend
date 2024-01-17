@@ -14,17 +14,22 @@ namespace ECommerce.Application.MappingProfiles
         {
             CreateMap<ProductDto, Product>()
                 .ForMember(d => d.Files, o => o.Ignore())
-                .ReverseMap();
+                .ReverseMap()
+                .ForMember(d => d.Thumbnail, o => o.MapFrom<FileUrlResolver, Product>(s => s));
 
-            CreateMap<Product, SimpleProductDto>();
+            CreateMap<Product, SimpleProductDto>()
+                .ForMember(d => d.Thumbnail, o => o.MapFrom<FileUrlResolver, Product>(s => s));
 
             CreateMap<Product, ProductDetailsDto>()
+                .ForMember(d => d.Thumbnail, o => o.MapFrom<FileUrlResolver, Product>(s => s))
                 .ForMember(d => d.ImageUrls, o => o.Ignore());
 
             CreateMap<CreateCommand, Product>()
+                .ForMember(d => d.Thumbnail, o => o.Ignore())
                 .ForMember(s => s.Files, o => o.Ignore());
 
             CreateMap<UpdateCommand, Product>()
+                .ForMember(d => d.Thumbnail, o => o.Ignore())
                 .ForMember(s => s.Files, o => o.Ignore());
         }
     }

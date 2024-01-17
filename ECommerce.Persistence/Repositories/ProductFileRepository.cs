@@ -1,4 +1,5 @@
 ﻿using ECommerce.Application.Contracts.Persistence;
+using ECommerce.Application.Models.Simple.File;
 using ECommerce.Domain;
 using ECommerce.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,19 @@ namespace ECommerce.Persistence.Repositories
                 .Include(x => x.File)
                 .Where(x => x.ProductId == productId)
                 .Select(x => x.File.Path.Substring(3))
+                .ToListAsync();
+        }
+
+        public async Task<List<FileUrlDto>> GetFileUrlModelsByProductIdAsync(long productId)
+        {
+            return await _context.ProductFiles
+                .Include(x => x.File)
+                .Where(x => x.ProductId == productId)
+                .Select(x => new FileUrlDto
+                {
+                    Id = x.FileId,
+                    Url = x.File.Path.Substring(3)
+                })
                 .ToListAsync();
         }
     }

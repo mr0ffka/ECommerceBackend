@@ -10,6 +10,8 @@ namespace ECommerce.Domain
         public int Stock { get; set; }
         public long CategoryId { get; set; }
         public Category Category { get; set; }
+        public long? ThumbnailId { get; set; }
+        public virtual Domain.File Thumbnail { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; } = new HashSet<CartItem>();
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
         public virtual ICollection<ProductFile> Files { get; set; } = new HashSet<ProductFile>();

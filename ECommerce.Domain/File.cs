@@ -13,6 +13,8 @@ namespace ECommerce.Domain
         public string Path { get; set; }
         public string ContentType { get; set; }
 
+        public virtual Product Product { get; set; }
         public virtual ICollection<ProductFile> Products { get; set; } = new HashSet<ProductFile>();
+
     }
 }

@@ -44,7 +44,13 @@ namespace ECommerce.Application.Features.Products.Commands.Create
                 throw new BadRequestException("Invalid Product", validatorResult);
             }
 
-            var entity = _mapper.Map<Domain.Product>(request);
+            var entity = _mapper.Map<Domain.Product>(request); 
+
+            if (request.Thumbnail != null)
+            {
+                var thumbnailId = await _fileRepository.UploadFileAsync(request.Thumbnail);
+                entity.ThumbnailId = thumbnailId;
+            }
 
             await _repository.CreateAsync(entity);
 

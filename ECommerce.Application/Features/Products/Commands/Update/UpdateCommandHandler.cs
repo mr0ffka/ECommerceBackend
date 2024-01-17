@@ -48,6 +48,12 @@ namespace ECommerce.Application.Features.Products.Commands.Update
 
             _mapper.Map(request, entity);
 
+            if (request.Thumbnail != null)
+            {
+                var thumbnailId = await _fileRepository.UploadFileAsync(request.Thumbnail);
+                entity.ThumbnailId = thumbnailId;
+            }
+
             await _repository.UpdateAsync(entity);
 
             foreach (var file in request.Files)

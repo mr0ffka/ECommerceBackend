@@ -1,4 +1,5 @@
 ﻿using ECommerce.Application.Features.Categories.Queries.GetById;
+using ECommerce.Application.Models.Simple.File;
 
 namespace ECommerce.Application.Features.Products.Queries.Get;
 
@@ -10,5 +11,6 @@ public class ProductDetailsDto
     public decimal Price { get; set; }
     public int Stock { get; set; }
     public CategoryDto Category { get; set; }
-    public List<string> ImageUrls { get; set; }
+    public List<FileUrlDto> ImageUrls { get; set; }
+    public FileUrlDto Thumbnail { get; set; }
 }

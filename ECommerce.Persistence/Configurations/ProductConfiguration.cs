@@ -44,6 +44,10 @@ namespace ECommerce.Persistence.Configurations
             builder.HasMany(e => e.Files)
                .WithOne(e => e.Product)
                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.Thumbnail)
+                .WithOne(x => x.Product)
+                .HasForeignKey<Product>(x => x.ThumbnailId);
         }
     }
 }
