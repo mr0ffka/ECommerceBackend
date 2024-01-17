@@ -31,9 +31,18 @@ namespace ECommerce.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<bool> HasUniqueName(string name)
+        public async Task<bool> HasUniqueName(long? id, string name)
         {
-            return !(await _context.Categories.AnyAsync(x => x.Name == name));
+            var predicate = PredicateBuilder.New<Category>(true);
+
+            if (id.HasValue)
+            {
+                predicate.And(x => x.Id != id.Value);
+            }
+
+            predicate.And(x => x.Name == name);
+
+            return !(await _context.Categories.Where(predicate).AnyAsync());
         }
     }
 }

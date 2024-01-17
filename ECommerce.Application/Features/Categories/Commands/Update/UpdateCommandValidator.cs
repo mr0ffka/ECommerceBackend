@@ -19,10 +19,6 @@ namespace ECommerce.Application.Features.Categories.Commands.Update
                 .NotNull()
                 .NotEmpty().WithMessage("{PropertyName} is required");
 
-            RuleFor(p => p.Name)
-                .NotNull()
-                .NotEmpty().WithMessage("{PropertyName} is required");
-
             RuleFor(p => p)
                 .MustAsync(NameUnique)
                 .WithMessage("Category name already exists");
@@ -30,7 +26,7 @@ namespace ECommerce.Application.Features.Categories.Commands.Update
 
         private Task<bool> NameUnique(UpdateCommand command, CancellationToken token)
         {
-            return _repository.HasUniqueName(command.Name);
+            return _repository.HasUniqueName(command.Id, command.Name);
         }
 
         private async Task<bool> Exists(UpdateCommand command, CancellationToken token)

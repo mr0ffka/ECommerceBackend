@@ -22,7 +22,7 @@ namespace ECommerce.Application.Features.Categories.Commands.Create
 
         private Task<bool> Unique(CreateCommand command, CancellationToken token)
         {
-            return _repository.HasUniqueName(command.Name);
+            return _repository.HasUniqueName(null, command.Name);
         }
     }
 }

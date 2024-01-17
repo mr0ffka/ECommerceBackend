@@ -7,7 +7,7 @@ namespace ECommerce.Application.Contracts.Persistence
     public interface ICategoryRepository : IGenericRepository<Category>
     {
         Task<List<Category>> GetListAsync(CategoryFilterDto filter, IPager pager);
-        Task<bool> HasUniqueName(string name);
+        Task<bool> HasUniqueName(long? id, string name);
 
     }
 }
