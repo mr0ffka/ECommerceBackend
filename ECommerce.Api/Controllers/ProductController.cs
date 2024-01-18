@@ -52,7 +52,7 @@ namespace ECommerce.Api.Controllers
             return CreatedAtAction(nameof(Create), new { id = entityId });
         }
 
-        [HttpPut("{id}")]
+        [HttpPost("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
