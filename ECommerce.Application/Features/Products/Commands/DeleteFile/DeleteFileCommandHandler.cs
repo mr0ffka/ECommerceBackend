@@ -31,12 +31,11 @@ namespace ECommerce.Application.Features.Products.Commands.DeleteFile
         {
             var entity = await _repository.GetAsync(request.ProductId, request.FileId);
 
-            if (entity == null)
+            if (entity != null)
             {
-                throw new NotFoundException(nameof(ProductFile), $"ProductId: {request.ProductId}, FileId: {request.FileId}");
+                await _repository.DeleteAsync(entity);
             }
 
-            await _repository.DeleteAsync(entity);
             await _fileRepository.DeleteFileAsync(request.FileId);
 
             return Unit.Value;

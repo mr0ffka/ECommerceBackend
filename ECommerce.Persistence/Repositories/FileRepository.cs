@@ -71,7 +71,7 @@ namespace ECommerce.Persistence.Repositories
                 throw new BadRequestException("No file uploaded");
 
             var fileExt = System.IO.Path.GetExtension(file.FileName);
-            var uniqueFileName = $"{System.IO.Path.ChangeExtension(file.FileName, null)}_{DateTime.UtcNow.Ticks}_{Guid.NewGuid()}{fileExt}";
+            var uniqueFileName = $"{DateTime.UtcNow.Ticks}_{Guid.NewGuid()}{fileExt}";
             var filePath = Path.Combine(_configuration["FileStorage:DefaultPath"]!, $"{file.ContentType}", uniqueFileName);
 
             try
